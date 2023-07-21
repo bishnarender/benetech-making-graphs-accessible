@@ -48,7 +48,7 @@ Only decoder section of "Pix2Struct transformer model" has been used. Decoder mo
 
 Number of tokens in tokenizer: 50359 i.e., our vocabulary size.
 
-Sequence length for flattened_patches is fixed and equal to "number of patches (~ 2048)". The shape is as ['flattened_patches'].shape => torch.Size([BS, 2048, 770]). The shape is derived by concatenating torch.Size([BS, 2048, 1]), torch.Size([BS, 2048, 1]) and torch.Size([BS, 2048, 768]). The first tensor torch.Size([BS, 2048, 1]) describes row_ids (indices of rows) repeated as many times as columns have. The second tensor torch.Size([BS, 2048, 1]) describes col_ids (indices of columns) repeated as many times as rows have. The last tensor torch.Size([BS, 2048, 768]) describes [BS, number of patches, patch_size<sup>2</sup>*channels].
+Sequence length for flattened_patches is fixed and equal to "number of patches (~ 2048)". The shape is as ['flattened_patches'].shape => torch.Size([BS, 2048, 770]). The shape is derived by concatenating torch.Size([BS, 2048, 1]), torch.Size([BS, 2048, 1]) and torch.Size([BS, 2048, 768]). The first tensor torch.Size([BS, 2048, 1]) describes row_ids (indices of rows) repeated as many times as columns have. The second tensor torch.Size([BS, 2048, 1]) describes col_ids (indices of columns) repeated as many times as rows have. The last tensor torch.Size([BS, 2048, 768]) describes [BS, number of patches, channels*patch_size<sup>2</sup>].
 
 Sequence length for texts is not fixed and changes according to contents. Maximum sequence length for texts is limited to 1024. The following is one of the texts (in the template form) as an example.
 <code>
@@ -58,7 +58,7 @@ As you can see numeric values have been cast into scientific notation using. <co
 
 <b>Prediction: </b> By decoding the labels to text string, chart type and data series have been extracted.
 
-### Q. What is MatCha?
+#### Q. What is MatCha?
 -----
 <b>MatCha,</b> which stands for math and charts, is a pixels-to-text foundation model (a pre-trained model with built-in <b>inductive biases</b> that can be fine-tuned for multiple applications) trained on two complementary tasks: (a) chart de-rendering and (b) math reasoning. In chart de-rendering, given a plot or chart, the image-to-text model is required to generate its underlying data <b>table</b> or the <b>code</b> used to render it. For math reasoning pre-training, we pick textual numerical reasoning datasets and render the input into images, which the image-to-text model needs to decode for answers.
 
@@ -66,7 +66,7 @@ MatCha is a model that is trained using Pix2Struct architecture. MatCha use P
 
 <b>google/matcha-base:</b> the base MatCha model, used to fine-tune MatCha on downstream tasks.
 
-### Q. What is Pix2Struct?
+#### Q. What is Pix2Struct?
 -----
 <b>Pix2Struct: Screenshot Parsing as Pretraining for Visual Language Understanding</b>. Pix2Struct, a pretrained image-to-text model for purely visual language understanding, which can be finetuned on tasks containing visually-situated language.
 Visually-situated language is ubiquitous— sources range from textbooks with diagrams to web pages with images and tables, to mobile apps with buttons and forms.
@@ -80,7 +80,7 @@ Pix2Struct preserves the aspect-ratio. The standard ViT scales the input images 
 ![pix2struct](https://github.com/bishnarender/benetech-making-graphs-accessible/assets/49610834/97d85684-8b93-418a-bfdd-2585722e97e4)
 [Image Reference](https://arxiv.org/pdf/2210.03347.pdf)
 
-### Q. What is ViT?
+#### Q. What is ViT?
 -----
 <b>What ViT do?</b> Split an image into fixed-size small patches, flattens them, linearly embed each of them, add position embeddings, and feed the resulting sequence of vectors to a standard Transformer encoder. Image patches are treated the same way as tokens (words) in an NLP application.
 
@@ -93,7 +93,7 @@ Position embeddings are added to the patch embeddings to retain positional infor
 ![vision_transformer](https://github.com/bishnarender/benetech-making-graphs-accessible/assets/49610834/23eccec7-4a98-4a0f-823d-9fdddd5c6c0a)
 [Image Reference](https://arxiv.org/pdf/2010.11929.pdf)
 
-### Q. What is AWP (Adverserial Weight Perturbation)?
+#### Q. What is AWP (Adverserial Weight Perturbation)?
 -----
 Adversarial examples are inputs to machine learning models that an attacker has intentionally designed to cause the model to make a mistake; they’re like optical illusions for machines.
 
@@ -105,7 +105,7 @@ By adding noise to the weights, the model learns to be more robust to small chan
 
 The noise added to the weights should be carefully controlled to strike a balance between robustness and preserving the model's accuracy on clean data. If the perturbations are too large, it may lead to a drop in accuracy on clean data.
 
-### Q. What is EMA (Exponential Moving average)?
+#### Q. What is EMA (Exponential Moving average)?
 -----
 Moving average is a smoothing technique that is commonly used for reducing the noise and fluctuation from time-series data.
 
