@@ -54,8 +54,7 @@ Sequence length for texts is not fixed and changes according to contents. Maximu
 <code>
 [<c_start>][<lines>][<c_end>][<p_start>]14|14[<p_end>][<x_start>]1918|1928|1938|1948|1958|1968|1978|1988|1998|2008|2018|2028|2038|2048[<x_end>][<y_start>]-4.51e+03|-3.10e+03|-1.99e+03|-1.16e+03|-5.44e+02|-1.19e+02|8.83e+01|2.63e+02|3.52e+02|2.55e+02|2.99e+02|3.73e+02|3.50e+02|4.58e+02[<y_end>]</s> 
 </code>
-As you can see numeric values have been cast into scientific notation using.
-<code>val = "{:.2e}".format(float(val))</code>
+As you can see numeric values have been cast into scientific notation using. <code>val = "{:.2e}".format(float(val))</code>
 
 <b>Prediction: </b> By decoding the labels to text string, chart type and data series have been extracted.
 
@@ -84,8 +83,9 @@ Pix2Struct preserves the aspect-ratio. The standard ViT scales the input images 
 ### Q. What is ViT?
 -----
 <b>What ViT do?</b> Split an image into fixed-size small patches, flattens them, linearly embed each of them, add position embeddings, and feed the resulting sequence of vectors to a standard Transformer encoder. Image patches are treated the same way as tokens (words) in an NLP application.
-The number of patches is decided via N = H*W / P^2. Where H = height of image, W = width of image, and P = patch_size (usually 16 pixels).
-The standard Transformer receives as input a 1D sequence of token embeddings. To handle  images, we reshape the image x ∈ R<sup>H×W×C</sup> into a sequence of flattened patches x<sub>p</sub> ∈ R <sup>N×(P <sup>2</sup>·C)</sup> , where (H, W) is the resolution of the original image, C is the number of channels, (P, P) is the resolution of each image patch, and N = HW/P<sup>2</sup> is the resulting number of patches, which also serves as the effective input sequence length for the Transformer. The Transformer uses constant latent vector size D through all of its layers, so ViT flatten the patches and map to D dimensions with a trainable linear projection. We refer to the output of this projection as the patch embeddings.
+
+The number of patches is decided via N = H*W / P<sup>2</sup>. Where H = height of image, W = width of image, and P = patch_size (usually 16 pixels). The standard Transformer receives as input a 1D sequence of token embeddings. To handle  images, we reshape the image x ∈ R<sup>H×W×C</sup> into a sequence of flattened patches x<sub>p</sub> ∈ R <sup>N×(P<sup>2</sup>·C)</sup> , where (H, W) is the resolution of the original image, C is the number of channels, (P, P) is the resolution of each image patch, and N = HW/P<sup>2</sup> is the resulting number of patches, which also serves as the effective input sequence length for the Transformer. The Transformer uses constant latent vector size D through all of its layers, so ViT flatten the patches and map to D dimensions with a trainable linear projection. We refer to the output of this projection as the patch embeddings. 
+
 So, an image of size (640, 512, 3) is transformed into a sequence (N, P <sup>2</sup>·C) i.e., to sequence (1280, 768). P = patch_size is usually 16 pixels, N=1280 assumed. A [CLS] token is added to serve as representation of an entire image, which can be used for classification. The authors also add absolute position embeddings, and feed the resulting sequence of vectors to a standard Transformer encoder.
 
 Position embeddings are added to the patch embeddings to retain positional information. ViT uses standard learnable 1D position embeddings, since it has not observed significant performance gains from using more advanced 2D-aware position embeddings.
@@ -116,4 +116,5 @@ Exponential moving average is a neural network training trick that sometimes imp
 The smoothing technique, such as EMA in particular, can be used to reduce the optimized parameter fluctuation noise and the parameter EMAs are more likely to be closed to a local minimum. Concretely, the optimized parameters after each update step are Θ<sub>1</sub>, Θ<sub>2</sub>, ⋯, Θ<sub>t</sub>, ⋯, Θ<sub>n</sub>, respectively. It’s just like a sequence of time-series data that has noise. Therefore, EMA can improve model generalization.
 
 ![ema](https://github.com/bishnarender/benetech-making-graphs-accessible/assets/49610834/28f25bb4-d504-4ea9-89e6-d97c53841a10)
+
 where α∈(0,1].
