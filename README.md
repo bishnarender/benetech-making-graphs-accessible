@@ -20,7 +20,6 @@ Certain external data sources has been used:<br>
 3. Self-mixup: created categorical series using [wikipedia glossary pages](https://www.kaggle.com/code/conjuring92/w03-stem-glossary/notebook) in STEM (Science, Technology, Engineering, and Mathematics) domain. created numerical series from random function generators.
 
 TabLE and Self-mixup been used in the ratio 0.25:0.75.
-
 <code>
 generator = random.choices(
         [wiki_generator, synthetic_generator],
