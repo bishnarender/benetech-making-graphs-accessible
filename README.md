@@ -111,12 +111,18 @@ Moving average is a smoothing technique that is commonly used for reducing the n
 
 In large neural networks, parameters are updated using certain mini-batch (including gradient accumulation steps) instead of using the entire dataset. This actually introduced the noise to the training. This training noise has both advantages and disadvantages.
 
-Exponential moving average is a neural network training trick that sometimes improves the model accuracy. Exponential moving average (EMA) computes the weighted mean of all the previous data points and the weights decay exponentially. Exponential functions are used to assign exponentially decreasing weights over time. The moving average of weights fall exponentially as we move forward in time-steps and hence the name exponential moving average.
+Exponential moving average is a neural network training trick that sometimes improves the model accuracy. Exponential moving average (EMA) computes the weighted mean of the past observations and the parameter moves exponentially. 
 
 EMA<sub>t</sub> = α[Θ<sub>t</sub> + (1-α)Θ<sub>t-1</sub> + (1-α)<sup>2</sup>Θ<sub>t-2</sub> + ... + (1-α)<sup>t-1</sup>Θ<sub>1</sub>] + (1-α)<sup>t</sup>Θ<sub>0</sub>
 
-The smoothing technique, such as EMA in particular, can be used to reduce the optimized parameter fluctuation noise and the parameter EMAs are more likely to be closed to a local minimum. Concretely, the optimized parameters after each update step are Θ<sub>1</sub>, Θ<sub>2</sub>, ⋯, Θ<sub>t</sub>, ⋯, Θ<sub>n</sub>, respectively. It’s just like a sequence of time-series data that has noise. Therefore, EMA can improve model generalization.
+Weights assigned to previous observations are proportional to the terms of the geometric progression:
+
+1, (1-α), (1-α)<sup>2</sup>, (1-α)<sup>3</sup>, ...
+
+A geometric progression is the discrete version of an exponential function, so this is where the name for this smoothing method originated.
+
+The smoothing technique, such as EMA in particular, can be used to reduce the optimized parameter fluctuation noise and the parameter EMAs are more likely to be closed to a local minimum. Concretely, the optimized parameters after each update step are Θ<sub>1</sub>, Θ<sub>2</sub>, ⋯, Θ<sub>t</sub>, ⋯, Θ<sub>n</sub>, respectively. It’s just like a sequence of time-series data that has noise. 
 
 ![ema](https://github.com/bishnarender/benetech-making-graphs-accessible/assets/49610834/28f25bb4-d504-4ea9-89e6-d97c53841a10)
 
-where α∈(0,1].
+where α∈(0,1]. In the limiting case with α = 1 the output series is just the current observation. Values of α close to one have less of a smoothing effect and give greater weight to recent changes in the data, while values of α closer to zero have a greater smoothing effect and are less responsive to recent changes.
